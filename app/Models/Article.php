@@ -16,4 +16,9 @@ class Article extends Model
         'thumbnail_url', 
         'source_name',
     ];
+
+        public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

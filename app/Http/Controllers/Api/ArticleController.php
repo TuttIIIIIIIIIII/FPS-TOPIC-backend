@@ -12,21 +12,19 @@ class ArticleController extends Controller
     {
         $perPage = $request->integer('per_page', 10);
 
-        // クエリパラメータを取得
-        $game = $request->query('game');   // valorant / apex / cod / all / null
-        $type = $request->query('type');   // update / esports / all / null
+
+        $game = $request->query('game');  
+        $type = $request->query('type');   
 
         $query = Article::query()
             ->where('is_published', true)
             ->orderByDesc('published_at')
             ->orderByDesc('created_at');
 
-        // ① ゲームで絞り込み
         if ($game && $game !== 'all') {
             $query->where('game', $game);
         }
 
-        // ② 記事タイプで絞り込み
         if ($type && $type !== 'all') {
             $query->where('type', $type);
         }
@@ -35,4 +33,12 @@ class ArticleController extends Controller
             $query->paginate($perPage)
         );
     }
+
+    public function show(Article $article)
+    {
+        abort_if(! $article->is_published, 404);
+
+        return response()->json($article);
+    }
 }
+

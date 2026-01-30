@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\Api\Admin\AuthController;
+
 
 // ───────────────
 // 公開API（ユーザー向け）
@@ -23,10 +25,14 @@ Route::post('/articles/{article}/comments', [CommentController::class, 'store'])
 // ───────────────
 
 Route::prefix('admin')->group(function () {
+
+    Route::post('/login', [AuthController::class, 'login']);
     // 記事管理
+    Route::get('/articles', [AdminArticleController::class, 'index']);
     Route::post('/articles', [AdminArticleController::class, 'store']);
     Route::put('/articles/{article}', [AdminArticleController::class, 'update']);
 
     // コメント削除
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 });
+

@@ -10,8 +10,8 @@ return new class extends Migration {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('article_id')->constrained()->cascadeOnDelete();
-            $table->string('author_name')->default('匿名'); // 常に匿名
-            $table->text('body');                           // コメント本文
+            $table->string('author_name')->default('匿名'); 
+            $table->text('body');                           
             $table->timestamps();
         });
     }

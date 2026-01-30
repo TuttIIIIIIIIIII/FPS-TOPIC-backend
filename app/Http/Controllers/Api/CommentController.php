@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Comment;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class CommentController extends Controller
 
         $comment = Comment::create([
             'article_id'  => $article->id,
-            'author_name' => '匿名',          // 固定
+            'author_name' => '匿名',          
             'body'        => $validated['body'],
         ]);
 
